@@ -20,7 +20,9 @@ Docker images werden installiert mit dem Kommando `docker pull <image>`
 | fedimintui/gateway-ui:0.2.1 | die Weboberfläche für das Gateway |
 
 Die spannende Stelle ist jetzt die docker images als docker container zu starten. Dabei müssen eine ganze Reihe von richtig gesetzten Parametern übergeben werden. Hilfreich ist dabei das Kommando docker-compose.
-docker-compose ruft eine Datei docker-compose.yaml auf, in der alle für den Start der container nötige Parameter steh
+docker-compose ruft eine Datei docker-compose.yaml auf, in der alle für den Start der container nötige Parameter stehen.
+
+Hier im Ordner docker-compose-mutinynet liegt die docker-compose.yaml mit de
 
 
 
@@ -28,6 +30,6 @@ docker-compose ruft eine Datei docker-compose.yaml auf, in der alle für den Sta
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5ODI4NDc4NzAsLTQ0ODM5NzI2LDE4NT
-Q0MTc4ODRdfQ==
+eyJoaXN0b3J5IjpbNDU0NTI4MDU0LC00NDgzOTcyNiwxODU0ND
+E3ODg0XX0=
 -->
