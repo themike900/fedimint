@@ -7,9 +7,9 @@ Eine Anleitung für Installation und Nutzung einer Fedimint, in deutsch.
 
 - Im Ubuntu muss docker und docker-compose installiert werden mit `apt install docker docker-compose`
 # Docker-Images
-- Für einen reinen Guardian müssen die docker images fedimnitd und guardian-ui installiert werden. Es es muss die API-Schnittstelle eines BitcoinCore im lokalen Netzt oder auf dem gleichen Rechner erreichbar sein.
-- Ein Gateway braucht die docker images gatewayd und gateway-ui und muss eine Lightning-Node im lokalen Netz oder auf dem gleichen Rechner erreichen können. 
-- 
+- Für einen reinen Guardian müssen die docker images `fedimnitd` und `guardian-ui` installiert werden. Es es muss die API-Schnittstelle eines BitcoinCore im lokalen Netzt oder auf dem gleichen Rechner erreichbar sein.
+- Ein Gateway braucht die docker images `gatewayd` und `gateway-ui` und muss eine Lightning-Node im lokalen Netz oder auf dem gleichen Rechner erreichen können. 
+
 Docker images werden installiert mit dem Kommando `docker pull <image>`
 
 | docker image | Verwendung |
@@ -19,12 +19,14 @@ Docker images werden installiert mit dem Kommando `docker pull <image>`
 | fedimint/gatewayd:v0.2.1 |  der Gateway-Prozess |
 | fedimintui/gateway-ui:0.2.1 | die Weboberfläche für das Gateway |
 
+Die spanne
+
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU0Nzc1NDEzMSwtNDQ4Mzk3MjYsMTg1ND
-QxNzg4NF19
+eyJoaXN0b3J5IjpbMjcxNDEzOTc3LC00NDgzOTcyNiwxODU0ND
+E3ODg0XX0=
 -->
