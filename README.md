@@ -1,4 +1,4 @@
-# fedimint
+# Fedimint
 Eine Anleitung für Installation und Nutzung einer Fedimint, in deutsch.
 # Voraussetzungen für die Installation
 - Die Docker-Images werden derzeit nur für Intel-Architektur erstellt. Es wird deshalb ein Rechner mit Intel/AMD-Prozessor benötigt. 
@@ -24,7 +24,7 @@ Die spannende Stelle ist jetzt die docker images als docker container zu starten
 
 Hier im Ordner `docker-compose-mutinynet` liegt die `docker-compose.yaml` mit der 4 Guradians mit 4 Guardian-UIs gestartet werden, die zum Testen nicht mit dem Bitcoin-Mainnet verbunden sind, sondern mit dem Mutinynet, dass die Fedimint-Entwickler auch verwenden. Das hat auch den Vorteil, dass kein eigener Bitcoin-Core installiert werden muss.
 
-Hier im Ordner `docker-compose-guardian` wird die docker-compose.yaml liegen, mit der ein einziger Guardian im Bitcoin-Mainnet gestartet wird. Dieses Datei muss vorher jeweils an die lokalen Bedingungen angepasst werden (wie wird die BitcoinCore API erreicht). Die Datei ist noch nicht erstellt.
+Hier im Ordner `docker-compose-guardian` wird die `docker-compose.yaml` liegen, mit der ein einziger Guardian im Bitcoin-Mainnet gestartet wird. Dieses Datei muss vorher jeweils an die lokalen Bedingungen angepasst werden (wie wird die BitcoinCore API erreicht). Die Datei ist noch nicht erstellt.
 
 
 
@@ -32,6 +32,6 @@ Hier im Ordner `docker-compose-guardian` wird die docker-compose.yaml liegen, mi
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM5NDY2MzA2NiwtNDQ4Mzk3MjYsMTg1ND
-QxNzg4NF19
+eyJoaXN0b3J5IjpbLTExNDA1OTk3NzAsLTQ0ODM5NzI2LDE4NT
+Q0MTc4ODRdfQ==
 -->
