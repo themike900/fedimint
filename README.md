@@ -22,7 +22,7 @@ Docker images werden installiert mit dem Kommando `docker pull <image>`
 Die spannende Stelle ist jetzt die docker images als docker container zu starten. Dabei müssen eine ganze Reihe von richtig gesetzten Parametern übergeben werden. Hilfreich ist dabei das Kommando docker-compose.
 docker-compose ruft eine Datei docker-compose.yaml auf, in der alle für den Start der container nötige Parameter stehen.
 
-Hier im Ordner docker-compose-mutinynet liegt die docker-compose.yaml mit de
+Hier im Ordner docker-compose-mutinynet liegt die docker-compose.yaml mit der 4 Guradians mit 4 guardian-UIs gestarten werden, die zum Testen nicht mit dem Bitcoin-Mainnet verbunden sind, sondern mit dem Mutinynet, dass die Fedimint-Entwickler auch verwenden.
 
 
 
@@ -30,6 +30,6 @@ Hier im Ordner docker-compose-mutinynet liegt die docker-compose.yaml mit de
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDU0NTI4MDU0LC00NDgzOTcyNiwxODU0ND
-E3ODg0XX0=
+eyJoaXN0b3J5IjpbLTE5NzM0MzkyMzMsLTQ0ODM5NzI2LDE4NT
+Q0MTc4ODRdfQ==
 -->
