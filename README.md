@@ -19,7 +19,7 @@ Docker images werden installiert mit dem Kommando `docker pull <image>`
 | fedimint/gatewayd:v0.2.1 |  der Gateway-Prozess |
 | fedimintui/gateway-ui:0.2.1 | die Weboberfläche für das Gateway |
 
-Die spanne
+Die spannende Stelle ist jetzt die docker images als docker container zu starten. Dabei müssen eine ganze Reihe von richtig gesetzten Parametern übergeben werden.
 
 
 
@@ -27,6 +27,6 @@ Die spanne
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjcxNDEzOTc3LC00NDgzOTcyNiwxODU0ND
-E3ODg0XX0=
+eyJoaXN0b3J5IjpbLTE5NjgxOTEyOTcsLTQ0ODM5NzI2LDE4NT
+Q0MTc4ODRdfQ==
 -->
