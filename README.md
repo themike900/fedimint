@@ -24,7 +24,7 @@ docker-compose ruft eine Datei docker-compose.yaml auf, in der alle für den Sta
 
 Hier im Ordner docker-compose-mutinynet liegt die docker-compose.yaml mit der 4 Guradians mit 4 guardian-UIs gestarten werden, die zum Testen nicht mit dem Bitcoin-Mainnet verbunden sind, sondern mit dem Mutinynet, dass die Fedimint-Entwickler auch verwenden.
 
-Hier im Ordner docker-compose-guardian wird die docker-compose.yaml liegen, mit der ein einziger Guardian im Bitcoin-Mainnet gestartet wird. Dieses Datei
+Hier im Ordner docker-compose-guardian wird die docker-compose.yaml liegen, mit der ein einziger Guardian im Bitcoin-Mainnet gestartet wird. Dieses Datei muss vorher jeweils an die lokalen Bedingungen angepasst werden (wie wird die BitcoinCore API erreicht). Die Datei ist noch nicht erstellt.
 
 
 
@@ -32,6 +32,6 @@ Hier im Ordner docker-compose-guardian wird die docker-compose.yaml liegen, mit 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA1ODQ5NzkxMSwtNDQ4Mzk3MjYsMTg1ND
-QxNzg4NF19
+eyJoaXN0b3J5IjpbMzY4NjQ4MTU5LC00NDgzOTcyNiwxODU0ND
+E3ODg0XX0=
 -->
