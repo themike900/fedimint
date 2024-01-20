@@ -1,7 +1,8 @@
 # fedimint
 Eine Anleitung für Installation und Nutzung einer Fedimint, in deutsch.
 # Voraussetzungen für die Installation
-Die Docker-Images werden der
+Die Docker-Images werden derzeit nur für Intel-Architektur erstellt. Es wird deshalb ein Rechner mit Intel/AMD-Prozessor benötigt. 
+
 # Docker-Images
 Docker images werden installiert mit dem Kommando `docker pull <image>`
 
@@ -18,5 +19,5 @@ Docker images werden installiert mit dem Kommando `docker pull <image>`
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzYzMTM3NTg5LDE4NTQ0MTc4ODRdfQ==
+eyJoaXN0b3J5IjpbLTk2NDA1ODQ5OCwxODU0NDE3ODg0XX0=
 -->
