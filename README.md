@@ -5,10 +5,11 @@ Eine Anleitung für Installation und Nutzung einer Fedimint, in deutsch.
 - Wenn der Rechner nur für die Fedimint-Prozess eingesetzt wird, reicht scheinbat vorerst eine HD/SSD von 100 GB dicke aus. Das muss aber in der Praxis noch beobachtet werden. Soll der Bitcoin-Knoten und vielleicht auch ein LND-Knoten mit auf den Rechner, muss die HD/SSD entsprechend viel größer sein.
 - Betriebssystem muss ein gängiges Linux sein z.B. Ubuntu. Es sollte keine grafische Oberfläche laufen, nur Kommandozeilen-Server-Mode.
 
-Im Ubuntu muss docker und docker-compose installiert werden mit `apt install docker docker-compose`
+- Im Ubuntu muss docker und docker-compose installiert werden mit `apt install docker docker-compose`
 # Docker-Images
-Für einen reinen Guardian müssen die docker images fedimnitd und guardian-ui installiert werden. Es es muss die API-Schnittstelle eines BitcoinCore im lokalen Netzt oder auf dem gleichen Rechner erreichbar sein.
-Ein Gateway braucht die docker images gatewayd und gateway-ui und muss eine Lightning-Node erreichen können. 
+- Für einen reinen Guardian müssen die docker images fedimnitd und guardian-ui installiert werden. Es es muss die API-Schnittstelle eines BitcoinCore im lokalen Netzt oder auf dem gleichen Rechner erreichbar sein.
+- Ein Gateway braucht die docker images gatewayd und gateway-ui und muss eine Lightning-Node im lokalen Netz oder auf dem gleichen Rechner erreichen können. 
+- 
 Docker images werden installiert mit dem Kommando `docker pull <image>`
 
 | docker image | Verwendung |
@@ -24,6 +25,6 @@ Docker images werden installiert mit dem Kommando `docker pull <image>`
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NDk0NzE4MjIsLTQ0ODM5NzI2LDE4NT
-Q0MTc4ODRdfQ==
+eyJoaXN0b3J5IjpbMTU0Nzc1NDEzMSwtNDQ4Mzk3MjYsMTg1ND
+QxNzg4NF19
 -->
