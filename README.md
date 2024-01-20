@@ -7,7 +7,8 @@ Eine Anleitung für Installation und Nutzung einer Fedimint, in deutsch.
 
 Im Ubuntu muss docker und docker-compose installiert werden mit `apt install docker docker-compose`
 # Docker-Images
-Für einen reinen Guardian müssen die docker images fedimnitd und guardian-ui installiert wer
+Für einen reinen Guardian müssen die docker images fedimnitd und guardian-ui installiert werden. Es es muss die API-Schnittstelle eines BitcoinCore erreichbar sein.
+Ein Gateway braucht die docker images  
 Docker images werden installiert mit dem Kommando `docker pull <image>`
 
 | docker image | Verwendung |
@@ -23,6 +24,6 @@ Docker images werden installiert mit dem Kommando `docker pull <image>`
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM5MjQ3Nzc2MSwtNDQ4Mzk3MjYsMTg1ND
-QxNzg4NF19
+eyJoaXN0b3J5IjpbOTMzODg5NTE3LC00NDgzOTcyNiwxODU0ND
+E3ODg0XX0=
 -->
