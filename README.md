@@ -4,7 +4,9 @@ Eine Anleitung für Installation und Nutzung einer Fedimint, in deutsch.
 Docker images werden installiert mit dem Kommando `docker pull <image>`
 
 fedimint/fedimintd:v0.2.1
-fedimint
+fedimint/gatewayd:v0.2.1
+fedimintui/guardian-ui:0.2.1
+fedimintui/
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM3NDYzMTUyMV19
+eyJoaXN0b3J5IjpbMjEwNTk4NzE3Nl19
 -->
