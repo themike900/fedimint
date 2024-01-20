@@ -8,12 +8,13 @@ Docker images werden installiert mit dem Kommando `docker pull <image>`
 | fedimint/fedimintd:v0.2.1 |  |
 | fedimintui/guardian-ui:0.2.1 | |
 | fedimint/gatewayd:v0.2.1 | |
-| fedimintui/
+| fedimintui/gateway-ui:0.2.1 | |
+
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg1NDQxNzg4NF19
+eyJoaXN0b3J5IjpbLTIwOTk2NDA2MTYsMTg1NDQxNzg4NF19
 -->
