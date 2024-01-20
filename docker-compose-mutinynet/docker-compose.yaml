@@ -1,0 +1,170 @@
+# die IP-Adresse 172.26.186.149 muss an die eigenen Gegebenheit angepasst werden
+version: "3"
+
+# ---- fedimintd-1 -------------------------------------------------------------
+services:
+  fedimintd-1:
+    image: fedimint/fedimintd:v0.2.1
+    volumes:
+      - ./fedimintd_data/1/data:/data
+    ports:
+      - "0.0.0.0:8171:8171"
+      - "0.0.0.0:8181:8181"
+    environment:
+      # - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+      # - FM_BITCOIN_RPC_KIND=bitcoind
+      - FM_BITCOIN_RPC_KIND=esplora
+      - FM_BITCOIN_RPC_URL=https://mutinynet.com/api/
+      - FM_BITCOIN_NETWORK=signet
+      - FM_BIND_P2P=0.0.0.0:8171
+      - FM_P2P_URL=fedimint://172.26.186.149:8171
+      - FM_BIND_API=0.0.0.0:8181
+      - FM_API_URL=ws://172.26.186.149:8181
+    restart: always
+    platform: linux/amd64
+
+# ---- fedimintd-2 -------------------------------------------------------------
+  fedimintd-2:
+    image: fedimint/fedimintd:v0.2.1
+    volumes:
+      - ./fedimintd_data/2/data:/data
+    ports:
+      - "0.0.0.0:8172:8172"
+      - "0.0.0.0:8182:8182"
+    environment:
+      # - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+      # - FM_BITCOIN_RPC_KIND=bitcoind
+      - FM_BITCOIN_RPC_KIND=esplora
+      - FM_BITCOIN_RPC_URL=https://mutinynet.com/api/
+      - FM_BITCOIN_NETWORK=signet
+      - FM_BIND_P2P=0.0.0.0:8172
+      - FM_P2P_URL=fedimint://172.26.186.149:8172
+      - FM_BIND_API=0.0.0.0:8182
+      - FM_API_URL=ws://172.26.186.149:8182
+    restart: always
+    platform: linux/amd64
+
+# ---- fedimintd-3 -------------------------------------------------------------
+  fedimintd-3:
+    image: fedimint/fedimintd:v0.2.1
+    volumes:
+      - ./fedimintd_data/3/data:/data
+    ports:
+      - "0.0.0.0:8173:8173"
+      - "0.0.0.0:8183:8183"
+    environment:
+      # - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+      # - FM_BITCOIN_RPC_KIND=bitcoind
+      - FM_BITCOIN_RPC_KIND=esplora
+      - FM_BITCOIN_RPC_URL=https://mutinynet.com/api/
+      - FM_BITCOIN_NETWORK=signet
+      - FM_BIND_P2P=0.0.0.0:8173
+      - FM_P2P_URL=fedimint://172.26.186.149:8173
+      - FM_BIND_API=0.0.0.0:8183
+      - FM_API_URL=ws://172.26.186.149:8183
+    restart: always
+    platform: linux/amd64
+
+# ---- fedimintd-4 -------------------------------------------------------------
+  fedimintd-4:
+    image: fedimint/fedimintd:v0.2.1
+    volumes:
+      - ./fedimintd_data/4/data:/data
+    ports:
+      - "0.0.0.0:8174:8174"
+      - "0.0.0.0:8184:8184"
+    environment:
+      # - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+      # - FM_BITCOIN_RPC_KIND=bitcoind
+      - FM_BITCOIN_RPC_KIND=esplora
+      - FM_BITCOIN_RPC_URL=https://mutinynet.com/api/
+      - FM_BITCOIN_NETWORK=signet
+      - FM_BIND_P2P=0.0.0.0:8174
+      - FM_P2P_URL=fedimint://172.26.186.149:8174
+      - FM_BIND_API=0.0.0.0:8184
+      - FM_API_URL=ws://172.26.186.149:8184
+    restart: always
+    platform: linux/amd64
+
+# ---- guardian-ui-1 -------------------------------------------------------------
+  guardian-ui-1:
+    image: fedimintui/guardian-ui:0.2.1
+    ports:
+      - "0.0.0.0:3001:3001"
+    environment:
+      - PORT=3001
+      - REACT_APP_FM_CONFIG_API=ws://172.26.186.149:8181
+    depends_on:
+      - fedimintd-1
+    restart: always
+    platform: linux/amd64
+
+# ---- guardian-ui-2 -------------------------------------------------------------
+  guardian-ui-2:
+    image: fedimintui/guardian-ui:0.2.1
+    ports:
+      - "0.0.0.0:3002:3002"
+    environment:
+      - PORT=3002
+      - REACT_APP_FM_CONFIG_API=ws://172.26.186.149:8182
+    depends_on:
+      - fedimintd-2
+    restart: always
+    platform: linux/amd64
+
+# ---- guardian-ui-3 -------------------------------------------------------------
+  guardian-ui-3:
+    image: fedimintui/guardian-ui:0.2.1
+    ports:
+      - "0.0.0.0:3003:3003"
+    environment:
+      - PORT=3003
+      - REACT_APP_FM_CONFIG_API=ws://172.26.186.149:8183
+    depends_on:
+      - fedimintd-3
+    restart: always
+    platform: linux/amd64
+
+# ---- guardian-ui-4 -------------------------------------------------------------
+  guardian-ui-4:
+    image: fedimintui/guardian-ui:0.2.1
+    ports:
+      - "0.0.0.0:3004:3004"
+    environment:
+      - PORT=3004
+      - REACT_APP_FM_CONFIG_API=ws://172.26.186.149:8184
+    depends_on:
+      - fedimintd-4
+    restart: always
+    platform: linux/amd64
+
+# ---- bitcoind regtest -------------------------------------------------------------
+#  bitcoind:
+#    image: btcpayserver/bitcoin:26.0
+#    environment:
+#      BITCOIN_NETWORK: regtest
+#      BITCOIN_EXTRA_ARGS: |
+#        rpcport=43782
+#        rpcbind=0.0.0.0:43782
+#        port=39388
+#        whitelist=0.0.0.0/0
+#        rpcuser=bitcoin
+#        rpcpassword=bitcoin
+#        rpcallowip=0.0.0.0/0
+#        fallbackfee=0.0004
+#        txindex=1
+#        server=1
+#        zmqpubrawblock=tcp://0.0.0.0:38332
+#        zmqpubrawtx=tcp://0.0.0.0:38333
+#    expose:
+#      - '43782'
+#      - '39388'
+#    ports:
+#      - '43782:43782'
+#      - '39388:39388'
+#    volumes:
+#      - './fm_data/bitcoin:/data'
+
+volumes:
+  fedimintd_data:
+    driver: local
