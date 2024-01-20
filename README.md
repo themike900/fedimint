@@ -6,11 +6,14 @@ Docker images werden installiert mit dem Kommando `docker pull <image>`
 | docker image | Verwendung |
 |--|--|
 | fedimint/fedimintd:v0.2.1 |  |
+| fedimintui/guardian-ui:0.2.1 | |
+| fedimint/gatewayd:v0.2.1 | |
+| fedimintui/
 
 
-fedimint/gatewayd:v0.2.1
-fedimintui/guardian-ui:0.2.1
-fedimintui/
+
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxOTc3OF19
+eyJoaXN0b3J5IjpbMTg1NDQxNzg4NF19
 -->
