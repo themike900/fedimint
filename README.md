@@ -19,10 +19,10 @@ Docker images werden installiert mit dem Kommando `docker pull <image>`
 | fedimint/gatewayd:v0.2.1 |  der Gateway-Prozess |
 | fedimintui/gateway-ui:0.2.1 | die Weboberfläche für das Gateway |
 
-Die spannende Stelle ist jetzt die docker images als docker container zu starten. Dabei müssen eine ganze Reihe von richtig gesetzten Parametern übergeben werden. Hilfreich ist dabei das Kommando docker-compose.
-docker-compose ruft eine Datei docker-compose.yaml auf, in der alle für den Start der container nötige Parameter stehen.
+Die spannende Stelle ist jetzt die docker images als docker container zu starten. Dabei müssen eine ganze Reihe von richtig gesetzten Parametern übergeben werden. Das geht elegant mit dem Kommando docker-compose.
+docker-compose ruft eine Datei docker-compose.yaml auf, in der alle für den Start der Containers nötige Parameter stehen.
 
-Hier im Ordner docker-compose-mutinynet liegt die docker-compose.yaml mit der 4 Guradians mit 4 guardian-UIs gestarten werden, die zum Testen nicht mit dem Bitcoin-Mainnet verbunden sind, sondern mit dem Mutinynet, dass die Fedimint-Entwickler auch verwenden.
+Hier im Ordner docker-compose-mutinynet liegt die docker-compose.yaml mit der 4 Guradians mit 4 uardian-UIs gestarten werden, die zum Testen nicht mit dem Bitcoin-Mainnet verbunden sind, sondern mit dem Mutinynet, dass die Fedimint-Entwickler auch verwenden.
 
 Hier im Ordner docker-compose-guardian wird die docker-compose.yaml liegen, mit der ein einziger Guardian im Bitcoin-Mainnet gestartet wird. Dieses Datei muss vorher jeweils an die lokalen Bedingungen angepasst werden (wie wird die BitcoinCore API erreicht). Die Datei ist noch nicht erstellt.
 
@@ -32,6 +32,6 @@ Hier im Ordner docker-compose-guardian wird die docker-compose.yaml liegen, mit 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzY4NjQ4MTU5LC00NDgzOTcyNiwxODU0ND
+eyJoaXN0b3J5IjpbLTE4MTE2MzA0LC00NDgzOTcyNiwxODU0ND
 E3ODg0XX0=
 -->
