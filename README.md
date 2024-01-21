@@ -31,7 +31,10 @@ Für einen Ubuntu Server sind für die Mutinynet-Testumgebung folgende Schritte 
 
 | command | Erklärung |
 | -- | -- |
-| ap
+| apt install docker docker-compose | |
+docker pull fedimint/fedimintd:v0.2.1
+docker pull fedimintui/guardian-ui:0.2.1 
+
 
 
 
@@ -39,6 +42,6 @@ Für einen Ubuntu Server sind für die Mutinynet-Testumgebung folgende Schritte 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzY3MDk3ODQwLDIzMTYxMTY3OSwtMTE0MD
-U5OTc3MCwtNDQ4Mzk3MjYsMTg1NDQxNzg4NF19
+eyJoaXN0b3J5IjpbLTE0MTM2MTgxMDAsMjMxNjExNjc5LC0xMT
+QwNTk5NzcwLC00NDgzOTcyNiwxODU0NDE3ODg0XX0=
 -->
