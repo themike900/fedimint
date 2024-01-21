@@ -27,7 +27,11 @@ Hier im Ordner `docker-compose-mutinynet` liegt die `docker-compose.yaml` mit de
 Hier im Ordner `docker-compose-guardian` wird die `docker-compose.yaml` liegen, mit der ein einziger Guardian im Bitcoin-Mainnet gestartet wird. Dieses Datei muss vorher jeweils an die lokalen Bedingungen angepasst werden (wie wird die BitcoinCore API erreicht). Die Datei ist noch nicht erstellt.
 
 # Schritt für Schritt
-Für einen Ubuntu Server sind für die Mutinynet-Testumgebu
+Für einen Ubuntu Server sind für die Mutinynet-Testumgebung folgende Schritte auszuführen:
+
+| command | Erklärung |
+| -- | -- |
+| ap
 
 
 
@@ -35,6 +39,6 @@ Für einen Ubuntu Server sind für die Mutinynet-Testumgebu
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU4MTE1NjU5NiwyMzE2MTE2NzksLTExND
-A1OTk3NzAsLTQ0ODM5NzI2LDE4NTQ0MTc4ODRdfQ==
+eyJoaXN0b3J5IjpbNzY3MDk3ODQwLDIzMTYxMTY3OSwtMTE0MD
+U5OTc3MCwtNDQ4Mzk3MjYsMTg1NDQxNzg4NF19
 -->
