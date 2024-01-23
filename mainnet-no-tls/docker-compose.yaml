@@ -1,0 +1,41 @@
+# ersetze xx.xx.xx.xx mit eigener IP-Adresse
+version: "3"
+
+# ---- fedimintd -------------------------------------------------------------
+services:
+  fedimintd:
+    image: fedimint/fedimintd:v0.2.1
+    volumes:
+      - ./fedimintd:/data
+    ports:
+      - "0.0.0.0:8173:8173"
+      - "0.0.0.0:8174:8174"
+    environment:
+      - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@127.0.0.1:43782
+      - FM_BITCOIN_RPC_KIND=bitcoind
+      - FM_BITCOIN_NETWORK=bitcoin
+      - FM_BIND_P2P=0.0.0.0:8173
+      - FM_P2P_URL=fedimint://xx.xx.xx.xx:8173
+      - FM_BIND_API=0.0.0.0:8174
+      - FM_API_URL=ws://xx.xx.xx.xx:8174
+    restart: always
+    platform: linux/amd64
+
+
+# ---- guardian-ui-1 -------------------------------------------------------------
+  guardian-ui-1:
+    image: fedimintui/guardian-ui:0.2.1
+    ports:
+      - "0.0.0.0:3000:3000"
+    environment:
+      - PORT=3000
+      - REACT_APP_FM_CONFIG_API=ws://xx.xx.xx.xx:8174
+    depends_on:
+      - fedimintd
+    restart: always
+    platform: linux/amd64
+
+
+volumes:
+  fedimintd:
+    driver: local
