@@ -4,8 +4,8 @@ Eine Anleitung für Installation und Nutzung einer Fedimint, in deutsch.
 - Die Docker-Images werden von den Devs derzeit nur für Intel-Architektur bereitgestellt. Es wird deshalb ein Rechner mit Intel/AMD-Prozessor benötigt. 
 - Wenn der Rechner nur für die Fedimint-Prozess eingesetzt wird, reicht scheinbar vorerst eine HD/SSD von 100 GB dicke aus. Das muss aber in der Praxis noch beobachtet werden. Soll der Bitcoin-Knoten und vielleicht auch ein LND-Knoten mit auf den Rechner, muss die HD/SSD wahrscheinlich viel größer sein.
 - Betriebssystem muss ein gängiges Linux sein z.B. Ubuntu. Es sollte keine grafische Oberfläche laufen, nur Kommandozeilen-Server-Mode.
-
-- Im Ubuntu muss docker und docker-compose installiert werden mit `apt install docker docker-compose`
+- Im Ubuntu muss docker und docker-compose installiert werden. 
+Wird der Rechner für eine Mainnet-Installation direkt ins Internet gehängt, braucht es zusätzliche Voraussetzungen. Ein revese-proxy mit TLS-Zertifikaten (`caddy` oder `nginx`) und eine Firewall (`ufw`) sollten unbedingt installiert werden, damit der Rechner geschützt ist und die Kommunikation sicher ist. Wenn `nginx` der reverse-proxy wird, ist `certbot` ein gute Wahl für die Beschaffung und Aktualisierung der TLS-Zertifikate.
 # Docker-Images
 - Für einen reinen Guardian müssen die docker images `fedimnitd` und `guardian-ui` installiert werden. Es es muss die API-Schnittstelle eines BitcoinCore im lokalen Netzt oder auf dem gleichen Rechner erreichbar sein.
 - Ein Gateway braucht die docker images `gatewayd` und `gateway-ui` und muss eine Lightning-Node im lokalen Netz oder auf dem gleichen Rechner erreichen können. 
@@ -27,12 +27,17 @@ Hier im Ordner `docker-compose-mutinynet` liegt die `docker-compose.yaml` mit de
 Hier im Ordner `docker-compose-guardian` wird die `docker-compose.yaml` liegen, mit der ein einziger Guardian im Bitcoin-Mainnet gestartet wird. Dieses Datei muss vorher jeweils an die lokalen Bedingungen angepasst werden (wie wird die BitcoinCore API erreicht). Die Datei ist noch nicht erstellt.
 
 # Schritt für Schritt
+## Mutiny-Testnetz
 Für einen Ubuntu Server sind für die Mutinynet-Testumgebung folgende Schritte auszuführen:
 
-    apt install docker docker-compose
-    docker pull fedimint/fedimintd:v0.2.1
-    docker pull fedimintui/guardian-ui:0.2.1 
+    sudo apt install docker docker-compose
+    sudo docker pull fedimint/fedimintd:v0.2.1
+    sudo docker pull fedimintui/guardian-ui:0.2.1 
+    cd ~
+    mkdir fedimint
+    cd fedimint
     wget https://github.com/themike900/fedimint/raw/main/docker-compose-mutinynet/docker-compose.yaml
+    sudo docker-compse up -d
 
 
 
