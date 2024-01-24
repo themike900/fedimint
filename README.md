@@ -29,12 +29,10 @@ Hier im Ordner `docker-compose-guardian` wird die `docker-compose.yaml` liegen, 
 # Schritt für Schritt
 Für einen Ubuntu Server sind für die Mutinynet-Testumgebung folgende Schritte auszuführen:
 
-| command | Erklärung |
-| -- | -- |
-| apt install docker docker-compose | |
-| docker pull fedimint/fedimintd:v0.2.1 | |
-docker pull fedimintui/guardian-ui:0.2.1 
-wget https://github.com/themike900/fedimint/raw/main/docker-compose-mutinynet/docker-compose.yaml
+    apt install docker docker-compose
+    docker pull fedimint/fedimintd:v0.2.1
+    docker pull fedimintui/guardian-ui:0.2.1 
+    wget https://github.com/themike900/fedimint/raw/main/docker-compose-mutinynet/docker-compose.yaml
 
 
 
@@ -43,7 +41,7 @@ wget https://github.com/themike900/fedimint/raw/main/docker-compose-mutinynet/do
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjI0MTM0NTk0LDc1NjI1NzE0NiwyMzE2MT
-E2NzksLTExNDA1OTk3NzAsLTQ0ODM5NzI2LDE4NTQ0MTc4ODRd
-fQ==
+eyJoaXN0b3J5IjpbLTIwNTY5ODUwMTEsNjI0MTM0NTk0LDc1Nj
+I1NzE0NiwyMzE2MTE2NzksLTExNDA1OTk3NzAsLTQ0ODM5NzI2
+LDE4NTQ0MTc4ODRdfQ==
 -->
