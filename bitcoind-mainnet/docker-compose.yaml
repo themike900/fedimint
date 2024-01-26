@@ -1,0 +1,35 @@
+# die IP-Adresse 172.26.186.149 muss an die eigenen Gegebenheit angepasst werden
+version: "3"
+
+services:
+# ---- bitcoind mainet -------------------------------------------------------------
+  bitcoind:
+    image: btcpayserver/bitcoin:26.0
+    environment:
+      BITCOIN_NETWORK: mainnet
+      BITCOIN_EXTRA_ARGS: |
+        rpcport=43782
+        rpcbind=0.0.0.0:43782
+        rpcuser=bitcoin
+        rpcpassword=bitcoin
+        rpcallowip=0.0.0.0/0
+        port=39388
+        whitelist=0.0.0.0/0
+        fallbackfee=0.0004
+        server=1
+        prune=40000
+        maxmempool=300
+        zmqpubrawblock=tcp://0.0.0.0:38332
+        zmqpubrawtx=tcp://0.0.0.0:38333
+    expose:
+      - '43782'
+      - '39388'
+    ports:
+      - '43782:43782'
+      - '39388:39388'
+    volumes:
+      - './data/bitcoin:/data'
+
+volumes:
+  fedimintd_data:
+    driver: local

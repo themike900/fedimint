@@ -1,4 +1,4 @@
-# ersetze xx.xx.xx.xx mit eigener IP-Adresse
+# ersetze beispiel.de mit eigener Domain
 version: "3"
 
 # ---- fedimintd -------------------------------------------------------------
@@ -15,9 +15,9 @@ services:
       - FM_BITCOIN_RPC_KIND=bitcoind
       - FM_BITCOIN_NETWORK=bitcoin
       - FM_BIND_P2P=0.0.0.0:8173
-      - FM_P2P_URL=fedimint://xx.xx.xx.xx:8173
+      - FM_P2P_URL=fedimint://fmd.beispiel.de:8173
       - FM_BIND_API=0.0.0.0:8174
-      - FM_API_URL=ws://xx.xx.xx.xx:8174
+      - FM_API_URL=ws://localhost:8174
     restart: always
     platform: linux/amd64
 
@@ -29,7 +29,7 @@ services:
       - "0.0.0.0:3000:3000"
     environment:
       - PORT=3000
-      - REACT_APP_FM_CONFIG_API=ws://xx.xx.xx.xx:8174
+      - REACT_APP_FM_CONFIG_API=ws://localhost:8174
     depends_on:
       - fedimintd
     restart: always
