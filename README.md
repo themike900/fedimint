@@ -57,7 +57,7 @@ Zuerst muss bitcoind gestartet werden. Die Konfiguration sieht einen pruned-Bitc
 cd ~
 mkdir bitcoind
 cd bitcoind
-wget https://raw.githubusercontent.com/themike900/fedimint/main/mainnet-no-tls/docker-compose.yaml
+wget https://raw.githubusercontent.com/themike900/fedimint/main/bitcoind-mainnet/docker-compose.yaml
 sudo docker-compose up -d
 ```
 
@@ -67,7 +67,7 @@ Hier im Ordner `docker-compose-guardian` liegt die `docker-compose.yaml`, mit de
 cd ~
 mkdir fedimitd
 cd fedimitd
-wget https://raw.githubusercontent.com/themike900/fedimint/main/mainnet-no-tls/docker-compose.yaml
+wget https://raw.githubusercontent.com/themike900/fedimint/main/fedimint-mainnet/docker-compose.yaml
 sudo docker-compose up -d
 ```
 
@@ -133,3 +133,5 @@ Jetzt kann die Guardian-WebUI mit http://fmdui.beispiel.de aufgerufene werden. F
 Damit wissen wir, dass der Zugriff über nginx funktioniert.
 
 # TLS-Zertifikate
+
+kommt als nächstes
