@@ -4,15 +4,19 @@ Eine Anleitung für Installation und Nutzung einer Fedimint, in deutsch.
 
 Diskussionen hierzu in der Telegram-Gruppe <https://t.me/fedimintgerman>.
 
-Inhalt
+## Inhalt
 
 * [Voraussetzungen für die Installation](#voraussetzungen)
 
-* [Docker-Images](#docker)
-
 * [Docker-Images](#docker-images)
 
-# Voraussetzungen für die Installation <a name="voraussetzungen"></a>
+* [Eigene Domain in nginx](#eigene-domain-in-nginx)
+
+* [TLS-Zertifikate](#tls-zertifikate)
+
+* [Härtung](#haertung)
+
+## Voraussetzungen für die Installation <a name="voraussetzungen"></a>
 
 Hier wird die Installation eines Fedimint-Guardians auf einem Debian-Rechner beschrieben, der direkt im Internet hängt. Falls ein Rechner verwendet wird, der hinter einem Internet-Router läuft, müssen noch zusätzliche Dinge (Port-Weiterleidung, DynDNS) beachtet werden, die hier nicht beschrieben werden.
 
@@ -77,7 +81,7 @@ sudo docker-compose up -d
 
 Wenn alles geklappt hat, dann läuft jetzt der Guardian, aber noch ohne TLS. Das kann mit dem Aufruf der Guardian-UI geprüft werden. Die sollte jetzt unter http://x.x.x.x:3000 erreichbar sein (x.x.x.x für die IP-Adresse des Servers.)
 
-# Eigene Domain in nginx
+## Eigene Domain in nginx
 
 Für die Verwendung von TLS-Zertifikaten braucht es erst einen eigenen Domainnamen für den Server. Der kann bei einem beliebigen Registrar gekauft werden. Nach dem Kauf müssen DNS-Records angepasst oder angelegt werden. Prinzipiell werden die Records am Ende so aussehen:
 
@@ -134,7 +138,7 @@ Jetzt kann die Guardian-WebUI mit http://fmdui.beispiel.de aufgerufene werden. F
 
 Damit wissen wir, dass der Zugriff über nginx funktioniert.
 
-# TLS-Zertifikate
+## TLS-Zertifikate
 
 Die TLS-Zertifikate sollen mit certbot installiert werden. certbot aus dem Debian-Repository ist veraltet. Es muss certbot aus dem snap-Repository verwendet werden. Dazu muss zunächst snap installiert werden:
 
@@ -164,7 +168,7 @@ certbot findet alle drei Domain-Name. Die Frage zu welchen er ein Zertifikat ins
 
 !!! Noch passt die Konfiguration nicht ganz. Ohne TLS über Port 80 haben die Zugriffe funktioniert, mit TLS über Port 443 derzeit noch nicht. Fehlersuche ist angesagt.
 
-# Härtung
+## Härtung
 
 Jetzt können alle Ports gesperrt werden, die nicht mehr gebraucht werden. Es werden nur noch gebraucht:
 
