@@ -6,7 +6,7 @@ Diskussionen hierzu in der Telegram-Gruppe <https://t.me/fedimintgerman>.
 
 ## Inhalt
 
-* [Voraussetzungen für die Installation](#voraussetzungen)
+* [Voraussetzungen für die Installation](#voraussetzungen-für-die-installation)
 
 * [Docker-Images](#docker-images)
 
@@ -16,7 +16,7 @@ Diskussionen hierzu in der Telegram-Gruppe <https://t.me/fedimintgerman>.
 
 * [Härtung](#härtung)
 
-## Voraussetzungen für die Installation <a name="voraussetzungen"></a>
+## Voraussetzungen für die Installation
 
 Hier wird die Installation eines Fedimint-Guardians auf einem Debian-Rechner beschrieben, der direkt im Internet hängt. Falls ein Rechner verwendet wird, der hinter einem Internet-Router läuft, müssen noch zusätzliche Dinge (Port-Weiterleidung, DynDNS) beachtet werden, die hier nicht beschrieben werden.
 
