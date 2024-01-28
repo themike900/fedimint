@@ -140,35 +140,55 @@ Damit wissen wir, dass der Zugriff über nginx funktioniert.
 
 ## TLS-Zertifikate
 
-Die TLS-Zertifikate sollen mit certbot installiert werden. certbot aus dem Debian-Repository ist veraltet. Es muss certbot aus dem snap-Repository verwendet werden. Dazu muss zunächst snap installiert werden:
+Die TLS-Zertifikate sollen mit `certbot` installiert werden. `certbot` aus dem Debian-Repository ist veraltet. Es muss `certbot` aus dem snap-Repository verwendet werden. Dazu muss zunächst `snap` installiert werden: (auf Ubuntu ist `snap` möglicherweise schon drauf)
 
 ```bash
 sudo apt install snap
 sudo snap install core
 ```
 
-Dabei wird snap installiert, dann noch das nötige core-Modul geladen. Damit ist snap bereit.
+Dabei wird `snap` installiert, dann noch das nötige core-Modul geladen. Damit ist `snap` bereit.
 
-Jetzt kann der aktuelle certbot installiert werden:
-
-```bash
-snap install --classic certbot
-ln -s /snap/bin/certbot /usr/bin/certbot
-```
-
-Jetzt ist certbot installiert und kann aufgerufen werden.
-
-Da wir oben bereits den nginx für die drei Domains vorbereitet haben, ist der Aufruf von cerbot jetzt ganz einfach:
+Jetzt kann der aktuelle `certbot` installiert werden:
 
 ```bash
-certbot --nginx
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
 ```
 
-certbot findet alle drei Domain-Name. Die Frage zu welchen er ein Zertifikat installieren soll muss nur mit ENTER bestätigt werden, dann werden Zertifikate für alle drei Domain-Namen erstellt und installiert. Auch nginx wird gleich neu gestartet. Damit ist das Port 443 für alle drei Namen freigeschaltet. Das Port 80 wird umdefiniert, damit Aufrufe dorthin auf Port 443 umgeleitet werden. Und certbot wird in systemctl so eingerichtet, dass es die Zertifikate selbständig von Ablauf aktualisiert. Die Zertifikate sind jetzt fertig installiert.
+Jetzt ist `certbot` installiert und kann aufgerufen werden.
 
-!!! Noch passt die Konfiguration nicht ganz. Ohne TLS über Port 80 haben die Zugriffe funktioniert, mit TLS über Port 443 derzeit noch nicht. Fehlersuche ist angesagt.
+Da wir oben bereits den `nginx` für die drei Domains vorbereitet haben, ist der Aufruf von `cerbot` jetzt ganz einfach:
+
+```bash
+sudo certbot --nginx
+```
+
+`certbot` findet alle drei Domain-Name. Die Frage zu welchen er ein Zertifikat installieren soll muss nur mit `ENTER` bestätigt werden, dann werden Zertifikate für alle drei Domain-Namen erstellt und installiert. Auch `nginx` wird gleich neu gestartet. Damit ist das Port 443 für alle drei Namen freigeschaltet. Das Port 80 wird umdefiniert, damit Aufrufe dorthin auf Port 443 umgeleitet werden. Und `certbot` wird in `systemctl` so eingerichtet, dass es die Zertifikate selbständig vor Ablauf aktualisiert. Die Zertifikate sind jetzt fertig installiert.
+
+!!! Noch passt die Konfiguration nicht ganz. Ohne TLS, über Port 80, haben die Zugriffe funktioniert, mit TLS über Port 443 derzeit noch nicht. Fehlersuche ist angesagt.
 
 ## Härtung
+
+### Schritt 1 ssh-key einrichten
+
+Annahme: Der Zugriff auf den Linux-Rechner erfolgt per PuTTY von einem Windows-PC aus. Dann muss mit PuTTYgen ein Keypair erstellt werden und Public- und Private-Key jeweils in Dateien sicher gespeichert werden. (!!! Besonders die Private-Key-Datei dürft ihr nicht verlieren, sie wird am Ende die einzige Möglichkeit sein an den Rechner ran zu kommen).
+
+Der gesamte Textblock in PuTTYgen im oberen Fenster muss auf dem Debian-Server in die Datei ~/.ssh/authorized_keys als eine Zeile eingetragen werden. Unbedingt prüfen, ob diese Datei dem User gehört und Datei sowie Verzeicnis nur vom User gelesen und geändert werden können. Die Rechte sind wichtig, sonst funktioniert der sshkey nicht.
+
+Danach muss Pageant gestartet werden und der eben erstellte Private-Key in ihn geladen werden. Dann können PuTTY und auch SuperPuTTY ohne Kennwortabfrage auf die Linux-Kommandozeile kommen.
+
+Wenn das klappt, kann die Kennwortabfrage abgeschaltet werden.
+
+Dazu in `/etc/ssh/sshd_config` den Wert `PasswordAuthentication no` setzen.
+
+Falls nicht schon geschehen, kann das root-login auch deaktiviert werden. 
+
+Dazu in `/etc/ssh/sshd_config` den Wert `PermitRootLogin no` setzen.
+
+
+
+### Schritt 2 ufw Firewall einrichten
 
 Jetzt können alle Ports gesperrt werden, die nicht mehr gebraucht werden. Es werden nur noch gebraucht:
 
