@@ -14,7 +14,7 @@ Diskussionen hierzu in der Telegram-Gruppe <https://t.me/fedimintgerman>.
 
 * [TLS-Zertifikate](#tls-zertifikate)
 
-* [Härtung](#haertung)
+* [Härtung](#härtung)
 
 ## Voraussetzungen für die Installation <a name="voraussetzungen"></a>
 
