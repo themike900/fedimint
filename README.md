@@ -2,24 +2,28 @@
 
 Eine Anleitung für Installation und Nutzung einer Fedimint, in deutsch.
 
-# Voraussetzungen für die Installation
+Diskussionen hierzu in der Telegram-Gruppe <https://t.me/fedimintgerman>.
+
+Inhalt
+
+* [Voraussetzungen für die Installation](#voraussetzungen)
+
+* [Docker-Images](#docker)
+
+* [Docker-Images](#docker-images)
+
+# Voraussetzungen für die Installation <a name="voraussetzungen"></a>
 
 Hier wird die Installation eines Fedimint-Guardians auf einem Debian-Rechner beschrieben, der direkt im Internet hängt. Falls ein Rechner verwendet wird, der hinter einem Internet-Router läuft, müssen noch zusätzliche Dinge (Port-Weiterleidung, DynDNS) beachtet werden, die hier nicht beschrieben werden.
 
 Es werden auf dem Rechner folgende Anwendungen installiert:
 
 - docker und docker-compose (für Installation, Konfiguration und Start der wichtigsten Programme)
-
 - fedimintd (der eigentliche Fedimint-Guardian-Prozess)
-
 - guardian-ui (die Web-Bedienoberfläche für den Guardian-Prozess)
-
 - bitcoind (ein pruned BitcoinCore für den Guardian)
-
 - nginx (ein Reverse-Proxy-Server zur Verteilung der Webaufrufe und die Nutzung der TLS-Zertifikate)
-
 - certbot (damit werden die TLS-Zertifikate erstellt und verwaltet)
-
 - ufw (die Firewall zum Schutz aller nicht benötigten Ports)
 
 Wenn der Rechner nur für die Fedimint-Prozess eingesetzt wird, reicht scheinbar vorerst eine HD/SSD von 150 GB dicke aus. Das muss aber in der Praxis noch beobachtet werden. Betriebssystem muss ein gängiges Linux sein z.B. Debian oder Ubuntu. Es sollte keine grafische Oberfläche laufen, nur Kommandozeilen-Server-Mode.
@@ -28,7 +32,7 @@ Die Docker-Images werden von den Devs derzeit nur für Intel-Architektur bereitg
 
 Für  die folgenden Absätze wird vorausgesetzt, dass der Ausführende mit einem Nutzer  in einer Linux-Konsole angemeldet ist der nicht der root-User ist, und aber sudo-Rechte hat.
 
-# Docker-Images
+## Docker-Images
 
 Zunächst muss docker installiert werden
 
@@ -99,7 +103,6 @@ server {
 server {
     listen 80;
     server_name fmdui.beispiel.de;
-	# server_name fmui-m900.duckdns.org;
     location / {
         proxy_pass http://127.0.0.1:3000;
         include proxy_params;
@@ -108,7 +111,6 @@ server {
 server {
     listen 80;
     server_name fmd.beispiel.de;
-	# server_name fmd-m900.duckdns.org;
     location / {
         proxy_pass http://127.0.0.1:8173;
         include proxy_params;
@@ -134,4 +136,43 @@ Damit wissen wir, dass der Zugriff über nginx funktioniert.
 
 # TLS-Zertifikate
 
-kommt als nächstes
+Die TLS-Zertifikate sollen mit certbot installiert werden. certbot aus dem Debian-Repository ist veraltet. Es muss certbot aus dem snap-Repository verwendet werden. Dazu muss zunächst snap installiert werden:
+
+```bash
+sudo apt install snap
+sudo snap install core
+```
+
+Dabei wird snap installiert, dann noch das nötige core-Modul geladen. Damit ist snap bereit.
+
+Jetzt kann der aktuelle certbot installiert werden:
+
+```bash
+snap install --classic certbot
+ln -s /snap/bin/certbot /usr/bin/certbot
+```
+
+Jetzt ist certbot installiert und kann aufgerufen werden.
+
+Da wir oben bereits den nginx für die drei Domains vorbereitet haben, ist der Aufruf von cerbot jetzt ganz einfach:
+
+```bash
+certbot --nginx
+```
+
+certbot findet alle drei Domain-Name. Die Frage zu welchen er ein Zertifikat installieren soll muss nur mit ENTER bestätigt werden, dann werden Zertifikate für alle drei Domain-Namen erstellt und installiert. Auch nginx wird gleich neu gestartet. Damit ist das Port 443 für alle drei Namen freigeschaltet. Das Port 80 wird umdefiniert, damit Aufrufe dorthin auf Port 443 umgeleitet werden. Und certbot wird in systemctl so eingerichtet, dass es die Zertifikate selbständig von Ablauf aktualisiert. Die Zertifikate sind jetzt fertig installiert.
+
+!!! Noch passt die Konfiguration nicht ganz. Ohne TLS über Port 80 haben die Zugriffe funktioniert, mit TLS über Port 443 derzeit noch nicht. Fehlersuche ist angesagt.
+
+# Härtung
+
+Jetzt können alle Ports gesperrt werden, die nicht mehr gebraucht werden. Es werden nur noch gebraucht:
+
+- 22 für SSH
+- 80 für certbot
+- 443 für Fedimint-Guardian-Verbindung
+- 443 für Web-UI
+- 443 für certbot
+- 39388 für bitcoind
+
+Fortsetzung folgt :)
