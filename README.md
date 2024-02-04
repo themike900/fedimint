@@ -26,7 +26,7 @@ Es werden auf dem Rechner folgende Anwendungen installiert:
 - fedimintd (der eigentliche Fedimint-Guardian-Prozess)
 - guardian-ui (die Web-Bedienoberfläche für den Guardian-Prozess)
 - bitcoind (ein pruned BitcoinCore für den Guardian)
-- nginx (ein Reverse-Proxy-Server zur Verteilung der Webaufrufe und die Nutzung der TLS-Zertifikate)
+- Apache (ein Reverse-Proxy-Server zur Verteilung der Webaufrufe und die Nutzung der TLS-Zertifikate)
 - certbot (damit werden die TLS-Zertifikate erstellt und verwaltet)
 - ufw (die Firewall zum Schutz aller nicht benötigten Ports)
 
@@ -81,7 +81,7 @@ sudo docker-compose up -d
 
 Wenn alles geklappt hat, dann läuft jetzt der Guardian, aber noch ohne TLS. Das kann mit dem Aufruf der Guardian-UI geprüft werden. Die sollte jetzt unter http://x.x.x.x:3000 erreichbar sein (x.x.x.x für die IP-Adresse des Servers.)
 
-## Eigene Domain in nginx
+## Eigene Domain in Apache Webserver
 
 Für die Verwendung von TLS-Zertifikaten braucht es erst einen eigenen Domainnamen für den Server. Der kann bei einem beliebigen Registrar gekauft werden. Nach dem Kauf müssen DNS-Records angepasst oder angelegt werden. Prinzipiell werden die Records am Ende so aussehen:
 
@@ -94,51 +94,64 @@ fmdui IN CNAME beispiel.de
 
 Dabei ist `x.x.x.x` die IP-Adresse des Servers, `beispiel.de` der gekaufte Domainname, `fmd` die Subdomain der Guardian-API und `fmdui` die Subdomain der Web-UI des Guardians. Die Subdomains können natürlich auch an eigene Ideen angepasst werden.
 
-Die dazu passende Konfigurationsdatei des nginx ist:
+Die dazu passenden Konfigurationsdatei des Apache sind:
 
-```nginx
-server {
-    listen 80;
-    server_name beispiel.de;
-    location / {
-        root /var/www/html;
-    }
-}
-server {
-    listen 80;
-    server_name fmdui.beispiel.de;
-    location / {
-        proxy_pass http://127.0.0.1:3000;
-        include proxy_params;
-    }
-}
-server {
-    listen 80;
-    server_name fmd.beispiel.de;
-    location / {
-        proxy_pass http://127.0.0.1:8173;
-        include proxy_params;
-    }
-}
+```apacheconf
+<VirtualHost *:80>
+	ServerName beispiel.de:80
+
+	ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/html
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
 ```
 
-Diese Datei muss in `/etc/nginx/sites-available` angelegt werden (z.B. als beispiel.de), und dann darauf ein symbolic link in `/etc/nginx/sites-enabled` angelegt werden, mit 
+und
+
+```apacheconf
+<VirtualHost *:80>
+    ServerName fmdui.beispiel.de
+    ProxyPass / http://x.x.x.x:3000/ nocanon
+    ProxyPassReverse / http://x.x.x.x/
+    ProxyPreserveHost On
+
+    ErrorLog ${APACHE_LOG_DIR}/fmdui-error.log
+    CustomLog ${APACHE_LOG_DIR}/fmdui-access.log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName fmd.beispiel.de
+    ProxyPass / ws://x.x.x.x:8174/ nocanon
+    ProxyPassReverse / ws://x.x.x.x/
+    ProxyWebsocketFallbackToProxyHttp On
+
+    ErrorLog ${APACHE_LOG_DIR}/fmd-error.log
+    CustomLog ${APACHE_LOG_DIR}/fmd-access.log combined
+</VirtualHost>
+```
+
+Diese Datei muss in `/etc/apache2/sites-available` angelegt werden (z.B. als beispiel.de), und dann darauf ein symbolic link in `/etc/apache2/sites-enabled` angelegt werden, mit 
 
 ```bash
 ln -s /ect/nginx/sites-availabe/beispiel.de /etc/nginx/sites-enabled/beispiel.de
 ```
 
-So übernimmt nginx die Änderungen:
+So übernimmt Apache die Änderungen:
 
 ```bash
-sudo systemctl restart nginx
+sudo systemctl restart apache2
 ```
 
-Jetzt kann die Guardian-WebUI mit http://fmdui.beispiel.de aufgerufene werden. Für die Verbindung zu anderen Guardians gilt jetzt http://fmd.beispiel.de und mit http://beispiel.de wird die nginx-Standardseite angezeigt.
+Jetzt kann die Guardian-WebUI mit http://fmdui.beispiel.de aufgerufene werden. Für die Verbindung zu anderen Guardians gilt jetzt http://fmd.beispiel.de und mit http://beispiel.de wird die Apache-Standardseite angezeigt.
 
-Damit wissen wir, dass der Zugriff über nginx funktioniert.
+Damit wissen wir, dass der Zugriff über Apache funktioniert, aber noch ohne TLS-Zertifikate.
 
 ## TLS-Zertifikate
+
+Die TLS-Zertifikate werden in einem Aapache-Webserver installiert, der als Reverse-Proxy konfigurtiert wird. Damit ist die TLS-Installation einfach und der Aache fungiert auch noch als Schutz und Puffer vor den beiden Fedimint-Komponenten. Die sind damit also nicht mehr direkt mit dem Internet verbunden
 
 Die TLS-Zertifikate sollen mit `certbot` installiert werden. `certbot` aus dem Debian-Repository ist veraltet. Es muss `certbot` aus dem snap-Repository verwendet werden. Dazu muss zunächst `snap` installiert werden: (auf Ubuntu ist `snap` möglicherweise schon drauf)
 
@@ -147,7 +160,7 @@ sudo apt install snap
 sudo snap install core
 ```
 
-Dabei wird `snap` installiert, dann noch das nötige core-Modul geladen. Damit ist `snap` bereit.
+So wird `snap` installiert, und noch das nötige core-Modul geladen. Damit ist `snap` bereit.
 
 Jetzt kann der aktuelle `certbot` installiert werden:
 
@@ -158,15 +171,13 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
 Jetzt ist `certbot` installiert und kann aufgerufen werden.
 
-Da wir oben bereits den `nginx` für die drei Domains vorbereitet haben, ist der Aufruf von `cerbot` jetzt ganz einfach:
+Da wir oben bereits den `Apache` für die drei Domains vorbereitet haben, ist der Aufruf von `cerbot` jetzt ganz einfach:
 
 ```bash
-sudo certbot --nginx
+sudo certbot --apache2
 ```
 
-`certbot` findet alle drei Domain-Name. Die Frage zu welchen er ein Zertifikat installieren soll muss nur mit `ENTER` bestätigt werden, dann werden Zertifikate für alle drei Domain-Namen erstellt und installiert. Auch `nginx` wird gleich neu gestartet. Damit ist das Port 443 für alle drei Namen freigeschaltet. Das Port 80 wird umdefiniert, damit Aufrufe dorthin auf Port 443 umgeleitet werden. Und `certbot` wird in `systemctl` so eingerichtet, dass es die Zertifikate selbständig vor Ablauf aktualisiert. Die Zertifikate sind jetzt fertig installiert.
-
-!!! Noch passt die Konfiguration nicht ganz. Ohne TLS, über Port 80, haben die Zugriffe funktioniert, mit TLS über Port 443 derzeit noch nicht. Fehlersuche ist angesagt.
+`certbot` findet alle drei Domain-Name. Die Frage zu welchen er ein Zertifikat installieren soll muss nur mit `ENTER` bestätigt werden, dann werden Zertifikate für alle drei Domain-Namen erstellt und installiert. Auch der `Apache` wird gleich neu gestartet. Damit ist das Port 443 für alle drei Namen freigeschaltet. Das Port 80 wird umdefiniert, damit Aufrufe dorthin auf Port 443 umgeleitet werden. Und `certbot` wird in `systemctl` so eingerichtet, dass es die Zertifikate selbständig vor Ablauf aktualisiert. Die Zertifikate sind jetzt fertig installiert.
 
 ## Härtung
 
@@ -184,19 +195,20 @@ Dazu in `/etc/ssh/sshd_config` den Wert `PasswordAuthentication no` setzen.
 
 Falls nicht schon geschehen, kann das root-login auch deaktiviert werden. 
 
-Dazu in `/etc/ssh/sshd_config` den Wert `PermitRootLogin no` setzen.
+Dazu in `/etc/ssh/sshd_config` den Wert `PermitRootLogin no` setzen, dann
 
-
+```bash
+systemctl restart ssh
+```
 
 ### Schritt 2 ufw Firewall einrichten
 
-Jetzt können alle Ports gesperrt werden, die nicht mehr gebraucht werden. Es werden nur noch gebraucht:
+So wird die Firewall `ufw` aktiviert, wenn sie nicht bereits aktiv ist. Die Grundeinstellung ist, dass alle Port geschlossen sind und die Ports, die benötigt werden per Eingabe geöffnet werden müssen. Vorsicht: das Port 22 muss auf jeden fall geöffnet werden, bevor die Firewall aktiviert wird, ansonsten habt ihr euch ausgeschlossen. Der Remote-Zugriff auf die Konsole findet immer per SSH auf Port 22 statt. 
 
-- 22 für SSH
-- 80 für certbot
-- 443 für Fedimint-Guardian-Verbindung
-- 443 für Web-UI
-- 443 für certbot
-- 39388 für bitcoind
-
-Fortsetzung folgt :)
+```bash
+ufw allow 22/tcp
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow 39388/tcp
+ufw enable
+```
