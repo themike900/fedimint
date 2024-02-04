@@ -83,6 +83,8 @@ Wenn alles geklappt hat, dann läuft jetzt der Guardian, aber noch ohne TLS. Das
 
 ## Eigene Domain in Apache Webserver
 
+### Domain-Beschaffung
+
 Für die Verwendung von TLS-Zertifikaten braucht es erst einen eigenen Domainnamen für den Server. Der kann bei einem beliebigen Registrar gekauft werden. Nach dem Kauf müssen DNS-Records angepasst oder angelegt werden. Prinzipiell werden die Records am Ende so aussehen:
 
 ```dns-zone-file
@@ -94,7 +96,18 @@ fmdui IN CNAME beispiel.de
 
 Dabei ist `x.x.x.x` die IP-Adresse des Servers, `beispiel.de` der gekaufte Domainname, `fmd` die Subdomain der Guardian-API und `fmdui` die Subdomain der Web-UI des Guardians. Die Subdomains können natürlich auch an eigene Ideen angepasst werden.
 
-Die dazu passenden Konfigurationsdatei des Apache sind:
+### Apache-Konfiguration
+
+Die TLS-Zertifikate werden später in einem Apache-Webserver installiert, der als Reverse-Proxy konfiguriert wird. Damit wird die TLS-Installation einfach und der Apache fungiert auch noch als Schutz und Puffer vor den beiden Fedimint-Komponenten. Die sind damit also nicht mehr direkt mit dem Internet verbunden.
+
+Die Installation des Apache ist einfach
+
+```bash
+sudo apt install apache2
+sudo a2enmod proxy proxy_http proxy_wstunnel
+```
+
+Dazu müssen die passenden Konfigurationsdatei des Apache in `/etc/apache2/sites-available` angelegt werden. `beispiel.de.conf` :
 
 ```apacheconf
 <VirtualHost *:80>
@@ -109,7 +122,7 @@ Die dazu passenden Konfigurationsdatei des Apache sind:
 
 ```
 
-und
+und `fedimint.beispiel.de.conf`:
 
 ```apacheconf
 <VirtualHost *:80>
@@ -133,10 +146,10 @@ und
 </VirtualHost>
 ```
 
-Diese Datei muss in `/etc/apache2/sites-available` angelegt werden (z.B. als beispiel.de), und dann darauf ein symbolic link in `/etc/apache2/sites-enabled` angelegt werden, mit 
+Diese Datei muss in `/etc/apache2/sites-available` angelegt werden (z.B. als beispiel.de), und dann aktiviert mit:
 
 ```bash
-ln -s /ect/nginx/sites-availabe/beispiel.de /etc/nginx/sites-enabled/beispiel.de
+sudo a2ensites beispiel.de fedimint.beispiel.de
 ```
 
 So übernimmt Apache die Änderungen:
@@ -150,8 +163,6 @@ Jetzt kann die Guardian-WebUI mit http://fmdui.beispiel.de aufgerufene werden. F
 Damit wissen wir, dass der Zugriff über Apache funktioniert, aber noch ohne TLS-Zertifikate.
 
 ## TLS-Zertifikate
-
-Die TLS-Zertifikate werden in einem Aapache-Webserver installiert, der als Reverse-Proxy konfigurtiert wird. Damit ist die TLS-Installation einfach und der Aache fungiert auch noch als Schutz und Puffer vor den beiden Fedimint-Komponenten. Die sind damit also nicht mehr direkt mit dem Internet verbunden
 
 Die TLS-Zertifikate sollen mit `certbot` installiert werden. `certbot` aus dem Debian-Repository ist veraltet. Es muss `certbot` aus dem snap-Repository verwendet werden. Dazu muss zunächst `snap` installiert werden: (auf Ubuntu ist `snap` möglicherweise schon drauf)
 
@@ -198,7 +209,7 @@ Falls nicht schon geschehen, kann das root-login auch deaktiviert werden.
 Dazu in `/etc/ssh/sshd_config` den Wert `PermitRootLogin no` setzen, dann
 
 ```bash
-systemctl restart ssh
+sudo systemctl restart ssh
 ```
 
 ### Schritt 2 ufw Firewall einrichten
@@ -206,9 +217,9 @@ systemctl restart ssh
 So wird die Firewall `ufw` aktiviert, wenn sie nicht bereits aktiv ist. Die Grundeinstellung ist, dass alle Port geschlossen sind und die Ports, die benötigt werden per Eingabe geöffnet werden müssen. Vorsicht: das Port 22 muss auf jeden fall geöffnet werden, bevor die Firewall aktiviert wird, ansonsten habt ihr euch ausgeschlossen. Der Remote-Zugriff auf die Konsole findet immer per SSH auf Port 22 statt. 
 
 ```bash
-ufw allow 22/tcp
-ufw allow 80/tcp
-ufw allow 443/tcp
-ufw allow 39388/tcp
-ufw enable
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw allow 39388/tcp
+sudo ufw enable
 ```
