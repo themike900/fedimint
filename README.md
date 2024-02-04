@@ -12,7 +12,7 @@ Erstellt von [Telegram: Contact @mikeninehundred](https://t.me/mikeninehundred)
 
 * [Docker-Images](#docker-images)
 
-* [Eigene Domain in nginx](#eigene-domain-in-nginx)
+* [Eigene Domain in Apache Webserver](#eigene-domain-in-apache-webserver)
 
 * [TLS-Zertifikate](#tls-zertifikate)
 
