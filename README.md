@@ -4,6 +4,8 @@ Eine Anleitung für Installation und Nutzung einer Fedimint, in deutsch.
 
 Diskussionen hierzu in der Telegram-Gruppe <https://t.me/fedimintgerman>.
 
+Erstellt von [Telegram: Contact @mikeninehundred](https://t.me/mikeninehundred)
+
 ## Inhalt
 
 * [Voraussetzungen für die Installation](#voraussetzungen-für-die-installation)
