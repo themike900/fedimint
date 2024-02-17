@@ -52,7 +52,7 @@ So werden die Images aus dem Internet geholt:
 
 ```bash
 sudo docker pull fedimint/fedimintd:v0.2.2
-sudo docker pull fedimintui/guardian-ui:0.2.1
+sudo docker pull fedimintui/guardian-ui:0.2.2
 sudo docker pull btcpayserver/bitcoin:26.0
 ```
 
@@ -200,7 +200,7 @@ sudo certbot --apache2
 
 Annahme: Der Zugriff auf den Linux-Rechner erfolgt per PuTTY von einem Windows-PC aus. Dann muss mit PuTTYgen ein Keypair erstellt werden und Public- und Private-Key jeweils in Dateien sicher gespeichert werden. (!!! Besonders die Private-Key-Datei dürft ihr nicht verlieren, sie wird am Ende die einzige Möglichkeit sein an den Rechner ran zu kommen).
 
-Der gesamte Textblock in PuTTYgen im oberen Fenster muss auf dem Debian-Server in die Datei ~/.ssh/authorized_keys als eine Zeile eingetragen werden. Unbedingt prüfen, ob diese Datei dem User gehört und Datei sowie Verzeicnis nur vom User gelesen und geändert werden können. Die Rechte sind wichtig, sonst funktioniert der sshkey nicht.
+Der gesamte Textblock in PuTTYgen im oberen Fenster muss auf dem Debian-Server in die Datei ~/.ssh/authorized_keys als eine Zeile eingetragen werden. Unbedingt prüfen, ob diese Datei dem User gehört und Datei sowie Verzeichnis nur vom User gelesen und geändert werden können. Die Rechte sind wichtig, sonst funktioniert der sshkey nicht.
 
 Danach muss Pageant gestartet werden und der eben erstellte Private-Key in ihn geladen werden. Dann können PuTTY und auch SuperPuTTY ohne Kennwortabfrage auf die Linux-Kommandozeile kommen.
 
