@@ -51,7 +51,7 @@ Für einen reinen Guardian müssen die docker images `fedimnitd` und `guardian-u
 So werden die Images aus dem Internet geholt:
 
 ```bash
-sudo docker pull fedimint/fedimintd:v0.2.1
+sudo docker pull fedimint/fedimintd:v0.2.2
 sudo docker pull fedimintui/guardian-ui:0.2.1
 sudo docker pull btcpayserver/bitcoin:26.0
 ```
@@ -68,6 +68,7 @@ cd ~
 mkdir bitcoind
 cd bitcoind
 wget https://raw.githubusercontent.com/themike900/fedimint/main/bitcoind-mainnet/docker-compose.yaml
+# docker-compose.yaml anpassen
 sudo docker-compose up -d
 ```
 
@@ -78,6 +79,7 @@ cd ~
 mkdir fedimitd
 cd fedimitd
 wget https://raw.githubusercontent.com/themike900/fedimint/main/fedimint-mainnet/docker-compose.yaml
+# docker-compose.yaml anpassen
 sudo docker-compose up -d
 ```
 
